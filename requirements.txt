@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+chromadb
+ollama
+pydantic
+markdown
+langchain
+langchain-community
+numpy
+tiktoken
+sentence-transformers
+transformers
+torch
