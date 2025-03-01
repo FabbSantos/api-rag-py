@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from app.retriever import DocumentRetriever
+from app.services.retriever import DocumentRetriever
 
 router = APIRouter()
 
@@ -15,7 +15,7 @@ def query_documents(request: QueryRequest):
 
         if not retriever: 
             raise HTTPException(
-                status_codde=503,
+                status_code=503,
                 detail="RAG system not completely available."
             )
         
@@ -37,7 +37,7 @@ def query_documents(request: QueryRequest):
             "sources": sources
         }
     except Exception as e:
-        raise HHTPException(
+        raise HTTPException(
             status_code=500,
             detail= f"Error processing query: {str(e)}"
         )

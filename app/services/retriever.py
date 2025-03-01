@@ -1,19 +1,19 @@
-from langchain.vectorstores import Chroma
+from langchain_community.vectorstores import Chroma
 from langchain.chains import RetrievalQA
-from langchain.llms import HuggingFacePipeline
+from langchain_community.llms import HuggingFacePipeline
 from transformers import pipeline
 from langchain.embeddings import HuggingFaceEmbeddings
-from config import DB_DIR, COLLECTION_NAME, LLM_MODEL
-
+from app.config import DB_DIR, COLLECTION_NAME, LLM_MODEL
+import os 
 class DocumentRetriever:
     def __init__(self):
-        self.embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+        self.embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2",api_key=os.getenv("HUGGING_FACE_API_KEY"))
         self.vector_store = Chroma(
             persist_directory=DB_DIR,
             embedding_function=self.embeddings,
             collection_name=COLLECTION_NAME
         )
-        self.llm = HuggingFacePipeline(pipeline=pipeline("text-generation", model=LLM_MODEL))
+        self.llm = HuggingFacePipeline(pipeline=pipeline("text-generation", model=LLM_MODEL, api_key=os.getenv("HUGGING_FACE_API_KEY")))
         self.qa_chain = self._initialize_qa_chain()
 
     def _initialize_qa_chain(self):
