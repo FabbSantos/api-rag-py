@@ -4,14 +4,13 @@ from .logger import logger
 
 class ConfigLoader:
     def __init__(self, caminho_arquivo="config.yaml"):
-    
         self.data = {}
         try:
             with open(caminho_arquivo, "r") as arquivo:
                 self.data = yaml.safe_load(arquivo)
-            logger.info(f"Config {caminho_arquivo}")
+            logger.info(f"Config {caminho_arquivo} carregado com sucesso.")
         except FileNotFoundError:
-            logger.error(f"{caminho_arquivo} Não encontrado:")
+            logger.error(f"{caminho_arquivo} Não encontrado.")
             self.data = {}
         except yaml.YAMLError as erro:
             logger.error(f"Erro no YAML: {erro}.")

@@ -6,9 +6,10 @@ chroma:
 
 chunking:
   chunk_size: 1000  # Tamanho de cada pedaço, vou testar com 1000 primeiro
-  chunk_overlap: 200  # Sobreposição pra não perder contexto
+  chunk_overlap: 300  # Sobreposição pra não perder contexto
 
 # Modelos que vou usar
 models:
   embedding: sentence-transformers/all-MiniLM-L6-v2 
-  llm: google/flan-t5-base
+  llm: "llama3.2:3b"
+
